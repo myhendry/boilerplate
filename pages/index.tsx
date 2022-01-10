@@ -1,8 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import React from "react";
+
+import Form from "../components/form";
+import { useDemoContext } from "../context/demo-context";
 // import Image from "next/image";
 
 const Home: NextPage = () => {
+  const { todos, saveTodo } = useDemoContext();
+  console.log(todos, saveTodo);
+
   return (
     <div>
       <Head>
@@ -13,6 +20,7 @@ const Home: NextPage = () => {
 
       <main className="m-5">
         <h1 className="text-3xl font-bold">NFT Game</h1>
+        <Form />
       </main>
     </div>
   );
