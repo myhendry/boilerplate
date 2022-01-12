@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useWeb3React } from "@web3-react/core";
 import { BigNumber } from "@ethersproject/bignumber";
 import { formatEther } from "@ethersproject/units";
+import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
+import {
+  NoEthereumProviderError,
+  UserRejectedRequestError as UserRejectedRequestErrorInjected,
+} from "@web3-react/injected-connector";
+import {
+  URI_AVAILABLE,
+  UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
+} from "@web3-react/walletconnect-connector";
+import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from "@web3-react/frame-connector";
 
 import { injected } from "../../lib/wallet";
+
+/*
+web3-react-v6 example
+https://codesandbox.io/s/8rg3h
+*/
 
 interface Props {}
 
@@ -58,7 +72,8 @@ const Web3React = (props: Props) => {
     try {
       await activate(injected);
     } catch (error) {
-      console.log(error);
+      const errMsg = getErrorMessage(error);
+      console.log("err", errMsg);
     }
   };
 
@@ -66,7 +81,8 @@ const Web3React = (props: Props) => {
     try {
       await deactivate();
     } catch (error) {
-      console.log(error);
+      const errMsg = getErrorMessage(error);
+      console.log("err", errMsg);
     }
   };
 
@@ -76,7 +92,25 @@ const Web3React = (props: Props) => {
       const signature = await library.getSigner(account).signMessage(message);
       console.log("signature", signature);
     } catch (error) {
-      console.log(error);
+      const errMsg = getErrorMessage(error);
+      console.log("err", errMsg);
+    }
+  };
+
+  const getErrorMessage = (error: any): string => {
+    if (error instanceof NoEthereumProviderError) {
+      return "No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.";
+    } else if (error instanceof UnsupportedChainIdError) {
+      return "You're connected to an unsupported network.";
+    } else if (
+      error instanceof UserRejectedRequestErrorInjected ||
+      error instanceof UserRejectedRequestErrorWalletConnect ||
+      error instanceof UserRejectedRequestErrorFrame
+    ) {
+      return "Please authorize this website to access your Ethereum account.";
+    } else {
+      console.error(error);
+      return "An unknown error occurred. Check the console for more details.";
     }
   };
 
