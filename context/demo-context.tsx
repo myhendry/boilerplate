@@ -1,13 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 /*
 https://blog.logrocket.com/how-to-use-react-context-with-typescript/
 */
 
 interface ITodo {
-  id: number;
+  id?: number;
   title: string;
-  status: boolean;
+  status?: boolean;
 }
 
 type ContextType = {
@@ -27,29 +33,36 @@ const DemoContextProvider: React.FC = ({ children }) => {
     },
   ]);
 
-  const saveTodo = (todo: ITodo) => {
-    const newTodo: ITodo = {
-      id: Math.random(), // not really unique - but fine for this example
-      title: todo.title,
-      status: false,
-    };
-    setTodos([...todos, newTodo]);
-  };
-
-  const updateTodo = (id: number) => {
-    todos.filter((todo: ITodo) => {
-      if (todo.id === id) {
-        todo.status = true;
-        setTodos([...todos]);
-      }
-    });
-  };
-
-  return (
-    <DemoContext.Provider value={{ todos, saveTodo, updateTodo }}>
-      {children}
-    </DemoContext.Provider>
+  const saveTodo = useCallback(
+    (todo: ITodo) => {
+      const newTodo: ITodo = {
+        id: Math.random(), // not really unique - but fine for this example
+        title: todo.title,
+        status: false,
+      };
+      setTodos([...todos, newTodo]);
+    },
+    [todos]
   );
+
+  const updateTodo = useCallback(
+    (id: number) => {
+      todos.filter((todo: ITodo) => {
+        if (todo.id === id) {
+          todo.status = true;
+          setTodos([...todos]);
+        }
+      });
+    },
+    [todos]
+  );
+
+  const value = useMemo(
+    () => ({ todos, saveTodo, updateTodo }),
+    [todos, saveTodo, updateTodo]
+  );
+
+  return <DemoContext.Provider value={value}>{children}</DemoContext.Provider>;
 };
 
 const useDemoContext = () => {
