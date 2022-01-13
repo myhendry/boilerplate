@@ -13,11 +13,8 @@ import {
 import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from "@web3-react/frame-connector";
 
 import { injected } from "../../lib/wallet";
-
-/*
-web3-react-v6 example
-https://codesandbox.io/s/8rg3h
-*/
+import { ethers } from "ethers";
+import { Web3Provider } from "@ethersproject/providers";
 
 interface Props {}
 
@@ -50,6 +47,7 @@ const Web3React = (props: Props) => {
   const [network, setNetwork] = useState<string>("");
 
   console.log("error", error);
+
   useEffect(() => {
     const getBalance = async () => {
       if (account) {

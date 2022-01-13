@@ -1,8 +1,10 @@
-# Basic Sample Hardhat Project
+- [ ] Interact with Greeter Contract
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+[daisy-ui](https://daisyui.com/components/button)
 
-Try running some of the following tasks:
+[web3-react-v6 example](https://codesandbox.io/s/8rg3h)
+
+[web3-react-v6 example 2](https://codesandbox.io/s/wonderful-grothendieck-1z81r?file=/pages/index.tsx)
 
 ```shell
 npx hardhat accounts
