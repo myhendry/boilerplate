@@ -27,9 +27,10 @@ const Greet = (props: Props) => {
       // const provider = new ethers.providers.JsonRpcProvider();
 
       // Rinkeby
-      const provider = new ethers.providers.JsonRpcProvider({
-        url: process.env.INFURA_RINKEBY_URL as string,
-      });
+      const provider = new ethers.providers.InfuraProvider(
+        "rinkeby",
+        process.env.INFURA_RINKEBY_URL
+      );
 
       const greeterContract = new ethers.Contract(
         Greeter.address,
