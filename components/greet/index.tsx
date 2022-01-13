@@ -80,7 +80,7 @@ const Greet = (props: Props) => {
   };
 
   const schema = yup.object({
-    message: yup.string().required(),
+    message: yup.string().min(2).required(),
   });
 
   const {
