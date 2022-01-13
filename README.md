@@ -1,5 +1,5 @@
-- [ ] Interacting Blockchain on Rinkeby
 - [ ] Multiple Token and Coin
+- [x] Interacting Blockchain on Rinkeby
 - [x] Interact with Greeter Contract
 
 [daisy-ui](https://daisyui.com/components/button)
