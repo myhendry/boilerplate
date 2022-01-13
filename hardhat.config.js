@@ -23,9 +23,6 @@ const PRIVATE_KEY_RINKEBY = process.env.PRIVATE_KEY_RINKEBY;
 const INFURA_ROPSTEN_URL = process.env.INFURA_ROPSTEN_URL;
 const PRIVATE_KEY_ROPSTEN = process.env.PRIVATE_KEY_ROPSTEN;
 
-console.log("iru", INFURA_RINKEBY_URL);
-console.log("pkr", PRIVATE_KEY_RINKEBY);
-
 module.exports = {
   solidity: "0.8.4",
   networks: {

@@ -23,7 +23,13 @@ const Greet = (props: Props) => {
   const loadGreeting = async () => {
     try {
       setIsLoading(true);
-      const provider = new ethers.providers.JsonRpcProvider();
+      // Localhost (Also must change the eth/Greeter.json address)
+      // const provider = new ethers.providers.JsonRpcProvider();
+
+      // Rinkeby
+      const provider = new ethers.providers.JsonRpcProvider({
+        url: process.env.INFURA_RINKEBY_URL as string,
+      });
 
       const greeterContract = new ethers.Contract(
         Greeter.address,
