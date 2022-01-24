@@ -9,78 +9,63 @@ import Contracts from "../../eth/Contracts.json";
 
 interface Props {}
 
-const Greet = (props: Props) => {
-  const [greeting, setGreeting] = useState<string>("");
+const Memory = (props: Props) => {
+  const [name, setName] = useState<string>("");
+  const [nickName, setNickName] = useState<string>("");
+  const [totalSupply, setTotalSupply] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { library } = useWeb3React();
 
-  // ! Eth
-  //#region Eth | LoadGreeting
   useEffect(() => {
-    loadGreeting();
+    loadContract();
   }, []);
 
-  const loadGreeting = async () => {
-    try {
-      setIsLoading(true);
-      // Localhost (Also must change the eth/Greeter.json address)
-      const provider = new ethers.providers.JsonRpcProvider();
+  const loadContract = async () => {
+    const provider = new ethers.providers.JsonRpcProvider();
 
-      // Rinkeby
-      // const provider = new ethers.providers.InfuraProvider(
-      //   "rinkeby",
-      //   process.env.INFURA_RINKEBY_URL
-      // );
+    const memoryTokenContract = new ethers.Contract(
+      Contracts.memoryTokenAddress,
+      Contracts.memoryTokenAbi,
+      provider
+    );
 
-      const greeterContract = new ethers.Contract(
-        Contracts.greeterAddress,
-        Contracts.greeterAbi,
-        provider
-      );
-
-      const res = await greeterContract.greet();
-      setGreeting(res);
-      setIsLoading(false);
-    } catch (error) {
-      console.log("loadGreeting Error", error);
-      setIsLoading(false);
-    }
+    const name = await memoryTokenContract.name();
+    setName(name);
+    const nickName = await memoryTokenContract.nickName();
+    setNickName(nickName);
+    const totalSupply = await memoryTokenContract.totalSupply();
+    setTotalSupply(totalSupply.toString());
   };
-  //#endregion
 
-  //#region Eth | SetGreeting
-  const setNewGreeting = async (newMessage: string) => {
+  const updateName = async (_name: string) => {
     try {
       setIsLoading(true);
-
       const signer = library.getSigner();
-      const greeterContract = new ethers.Contract(
-        Contracts.greeterAddress,
-        Contracts.greeterAbi,
+      const memoryTokenContract = new ethers.Contract(
+        Contracts.memoryTokenAddress,
+        Contracts.memoryTokenAbi,
         signer
       );
 
-      const transaction = await greeterContract.setGreeting(newMessage);
+      const transaction = await memoryTokenContract.setName(_name);
       await transaction.wait();
-      setGreeting(newMessage);
-
       setIsLoading(false);
     } catch (error) {
-      console.log("setNewGreeting Error", error);
+      console.log("error", error);
       setIsLoading(false);
     }
   };
-  //#endregion
 
   // ! Form
   //#region Form
 
   type IFormInputs = {
-    message: string;
+    name: string;
   };
 
   const schema = yup.object({
-    message: yup.string().min(2).required(),
+    name: yup.string().min(2).required(),
   });
 
   const {
@@ -91,28 +76,33 @@ const Greet = (props: Props) => {
   } = useForm<IFormInputs>({
     resolver: yupResolver(schema),
     defaultValues: {
-      message: "",
+      name: "",
     },
   });
 
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    setNewGreeting(data.message);
+    updateName(data.name);
     reset();
   };
   //#endregion
 
   return (
     <div>
-      <p>My Greeting: {greeting}</p>
+      <p>Hello Memory</p>
+
+      <p>{name}</p>
+      <p>{nickName}</p>
+      <p>{totalSupply}</p>
+
       <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label className="mr-3">Message</label>
           <input
             type="text"
             className="input input-bordered"
-            {...register("message")}
+            {...register("name")}
           />
-          <p className="text-red-600">{errors.message?.message}</p>
+          <p className="text-red-600">{errors.name?.message}</p>
         </div>
 
         <input
@@ -131,4 +121,4 @@ const Greet = (props: Props) => {
   );
 };
 
-export default Greet;
+export default Memory;

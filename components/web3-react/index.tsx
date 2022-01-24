@@ -30,6 +30,7 @@ const NETWORKS: INetwork = {
   42: "Kovan Test Network",
   56: "Binance Smart Chain",
   1337: "Ganache",
+  31337: "Localhost",
 };
 
 const Web3React = (props: Props) => {

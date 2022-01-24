@@ -7,6 +7,7 @@ import { Header } from "../components/common";
 import Greet from "../components/greet";
 import Web3React from "../components/web3-react";
 import { useDemoContext } from "../context/demo-context";
+import Memory from "../components/memory";
 // import Image from "next/image";
 
 const Home: NextPage = () => {
@@ -25,6 +26,7 @@ const Home: NextPage = () => {
       <main className="m-5">
         <h1 className="text-3xl font-bold">NFT Game</h1>
         <Web3React />
+        <Memory />
         <Greet />
         {/* <Form  /> */}
       </main>
