@@ -15,7 +15,7 @@ const Fund = (props: Props) => {
   const [totalSupply, setTotalSupply] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { library } = useWeb3React();
+  const { library, account } = useWeb3React();
 
   useEffect(() => {
     loadContract();
@@ -56,24 +56,62 @@ const Fund = (props: Props) => {
     }
   };
 
-  //   const updateName = async (_name: string) => {
-  //     try {
-  //       setIsLoading(true);
-  //       const signer = library.getSigner();
-  //       const memoryTokenContract = new ethers.Contract(
-  //         Contracts.memoryTokenAddress,
-  //         Contracts.memoryTokenAbi,
-  //         signer
-  //       );
+  const fund = async () => {
+    try {
+      setIsLoading(true);
+      const signer = library.getSigner();
+      const fundMeContract = new ethers.Contract(
+        Contracts.fundMeAddress,
+        Contracts.fundMeAbi,
+        signer
+      );
 
-  //       const transaction = await memoryTokenContract.setName(_name);
-  //       await transaction.wait();
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       console.log("error", error);
-  //       setIsLoading(false);
-  //     }
-  //   };
+      const transaction = await fundMeContract.fund({
+        value: ethers.utils.parseUnits("0.1", "ether").toHexString(),
+      });
+      await transaction.wait;
+      console.log("Fund Transaction", transaction);
+
+      setIsLoading(false);
+    } catch (error) {
+      console.log("error", error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleFund = async (e: any) => {
+    e.preventDefault();
+    await fund();
+  };
+
+  const withdraw = async () => {
+    try {
+      setIsLoading(true);
+      const signer = library.getSigner();
+      const fundMeContract = new ethers.Contract(
+        Contracts.fundMeAddress,
+        Contracts.fundMeAbi,
+        signer
+      );
+
+      console.log("account", account);
+      const transaction = await fundMeContract.withdraw({
+        from: account,
+      });
+      await transaction.wait;
+      console.log("Withdraw transaction", transaction);
+
+      setIsLoading(false);
+    } catch (error) {
+      console.log("error", error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleWithdraw = async (e: any) => {
+    e.preventDefault();
+    await withdraw();
+  };
 
   // ! Form
   //#region Form
@@ -107,7 +145,18 @@ const Fund = (props: Props) => {
     <div>
       <p>Fund Me</p>
 
-      <p>{name}</p>
+      <button
+        onClick={handleFund}
+        className="btn btn-primary rounded-md block w-1/4 my-2"
+      >
+        Fund
+      </button>
+      <button
+        onClick={handleWithdraw}
+        className="btn btn-primary rounded-md block w-1/4 my-2 bg-red-600"
+      >
+        Withdraw
+      </button>
 
       <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
         <div>

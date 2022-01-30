@@ -1,6 +1,7 @@
+- [ ] Withdraw
 - [ ] Complex Smart Contract
-- [ ] Continue NFT Game
 - [ ] Multiple Token and Coin
+- [x] Fund
 - [x] Interacting Blockchain on Rinkeby
 - [x] Interact with Greeter Contract
 
