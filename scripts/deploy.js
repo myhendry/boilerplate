@@ -23,13 +23,20 @@ async function main() {
   const memoryToken = await MemoryToken.deploy("HL");
   await memoryToken.deployed();
 
+  const FundMe = await hre.ethers.getContractFactory("FundMe");
+  const fundMe = await FundMe.deploy();
+  await fundMe.deployed();
+
   console.log(`Greeter Contract deployed to: ${greeter.address}`);
   console.log(`MemoryToken Contract deployed to: ${memoryToken.address}`);
+  console.log(`FundMe Contract deployed to: ${fundMe.address}`);
   const data = {
     greeterAddress: greeter.address,
     greeterAbi: JSON.parse(greeter.interface.format("json")),
     memoryTokenAddress: memoryToken.address,
     memoryTokenAbi: JSON.parse(memoryToken.interface.format("json")),
+    fundMeAddress: fundMe.address,
+    fundMeAbi: JSON.parse(fundMe.interface.format("json")),
   };
   fs.writeFileSync("eth/Contracts.json", JSON.stringify(data));
 }

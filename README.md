@@ -18,6 +18,8 @@ https://github.com/01Clarian/nft-marketplace-solution/tree/main/src
 
 [web3-react other doc](https://hackmd.io/Ykpp1MWLTjixIZG2ZJEShA#connector)
 
+https://ethereum.org/en/developers/tutorials/how-to-write-and-deploy-an-nft/
+
 The error call revert exception means that:
 
 Method reverts during its execution.
@@ -33,4 +35,6 @@ npx hardhat test
 npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
+
+npx hardhat run scripts/deploy.js --network <localhost>
 ```

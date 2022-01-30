@@ -24,7 +24,17 @@ const INFURA_ROPSTEN_URL = process.env.INFURA_ROPSTEN_URL;
 const PRIVATE_KEY_ROPSTEN = process.env.PRIVATE_KEY_ROPSTEN;
 
 module.exports = {
-  solidity: "0.8.4",
+  // solidity: "0.8.0",
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.0",
+      },
+      {
+        version: "0.6.0",
+      },
+    ],
+  },
   networks: {
     rinkeby: {
       url: INFURA_RINKEBY_URL,

@@ -11,6 +11,7 @@ interface Props {}
 
 const Greet = (props: Props) => {
   const [greeting, setGreeting] = useState<string>("");
+  const [errorMsg, setErrorMsg] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { library } = useWeb3React();
 
@@ -24,13 +25,13 @@ const Greet = (props: Props) => {
     try {
       setIsLoading(true);
       // Localhost (Also must change the eth/Greeter.json address)
-      const provider = new ethers.providers.JsonRpcProvider();
+      //const provider = new ethers.providers.JsonRpcProvider();
 
       // Rinkeby
-      // const provider = new ethers.providers.InfuraProvider(
-      //   "rinkeby",
-      //   process.env.INFURA_RINKEBY_URL
-      // );
+      const provider = new ethers.providers.InfuraProvider(
+        "rinkeby",
+        process.env.INFURA_RINKEBY_URL
+      );
 
       const greeterContract = new ethers.Contract(
         Contracts.greeterAddress,
@@ -43,6 +44,7 @@ const Greet = (props: Props) => {
       setIsLoading(false);
     } catch (error) {
       console.log("loadGreeting Error", error);
+      setErrorMsg("Failed to Connect to Smart Contract");
       setIsLoading(false);
     }
   };
@@ -61,7 +63,7 @@ const Greet = (props: Props) => {
       );
 
       const transaction = await greeterContract.setGreeting(newMessage);
-      await transaction.wait();
+      await transaction.wait;
       setGreeting(newMessage);
 
       setIsLoading(false);
@@ -103,7 +105,12 @@ const Greet = (props: Props) => {
 
   return (
     <div>
-      <p>My Greeting: {greeting}</p>
+      {errorMsg ? (
+        <p className="text-red-600">{errorMsg}</p>
+      ) : (
+        <p>My Greeting: {greeting}</p>
+      )}
+
       <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label className="mr-3">Message</label>

@@ -1,6 +1,22 @@
+import Link from "next/link";
 import React from "react";
 
 interface Props {}
+
+const links = [
+  {
+    name: "Home",
+    path: "/",
+  },
+  {
+    name: "Auth",
+    path: "/auth",
+  },
+  {
+    name: "About",
+    path: "/about",
+  },
+];
 
 export const Header = (props: Props) => {
   return (
@@ -10,10 +26,11 @@ export const Header = (props: Props) => {
       </div>
       <div className="hidden px-2 mx-2 navbar-center lg:flex">
         <div className="flex items-stretch">
-          <a className="btn btn-ghost btn-sm rounded-btn">Home</a>
-          <a className="btn btn-ghost btn-sm rounded-btn">Portfolio</a>
-          <a className="btn btn-ghost btn-sm rounded-btn">About</a>
-          <a className="btn btn-ghost btn-sm rounded-btn">Contact</a>
+          {links.map((link, i) => (
+            <Link key={i} href={link.path}>
+              <a className="btn btn-ghost btn-sm rounded-btn">{link.name}</a>
+            </Link>
+          ))}
         </div>
       </div>
       <div className="navbar-end">
