@@ -1,6 +1,7 @@
-- [ ] Withdraw
+- [ ] Read Balance
 - [ ] Complex Smart Contract
 - [ ] Multiple Token and Coin
+- [x] Withdraw
 - [x] Fund
 - [x] Interacting Blockchain on Rinkeby
 - [x] Interact with Greeter Contract
