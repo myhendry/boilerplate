@@ -6,6 +6,8 @@
 const hre = require("hardhat");
 const fs = require("fs");
 
+const tokenSupply = hre.ethers.utils.parseEther("1000");
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -27,9 +29,25 @@ async function main() {
   const fundMe = await FundMe.deploy();
   await fundMe.deployed();
 
+  const HToken = await hre.ethers.getContractFactory("HToken");
+  const hToken = await HToken.deploy(tokenSupply);
+  await hToken.deployed();
+
+  const Lottery = await hre.ethers.getContractFactory("Lottery");
+  const lottery = await Lottery.deploy();
+  await lottery.deployed();
+
+  const SimpleLottery = await hre.ethers.getContractFactory("SimpleLottery");
+  const simpleLottery = await SimpleLottery.deploy();
+  await simpleLottery.deployed();
+
   console.log(`Greeter Contract deployed to: ${greeter.address}`);
   console.log(`MemoryToken Contract deployed to: ${memoryToken.address}`);
   console.log(`FundMe Contract deployed to: ${fundMe.address}`);
+  console.log(`HToken Contract deployed to: ${hToken.address}`);
+  console.log(`Lottery Contract deployed to: ${lottery.address}`);
+  console.log(`SimpleLottery Contract deployed to: ${simpleLottery.address}`);
+
   const data = {
     greeterAddress: greeter.address,
     greeterAbi: JSON.parse(greeter.interface.format("json")),
@@ -37,6 +55,12 @@ async function main() {
     memoryTokenAbi: JSON.parse(memoryToken.interface.format("json")),
     fundMeAddress: fundMe.address,
     fundMeAbi: JSON.parse(fundMe.interface.format("json")),
+    hTokenAddress: hToken.address,
+    hTokenAbi: JSON.parse(fundMe.interface.format("json")),
+    lotteryAddress: lottery.address,
+    lotteryAbi: JSON.parse(lottery.interface.format("json")),
+    simpleLotteryAddress: simpleLottery.address,
+    simpleLotteryAbi: JSON.parse(simpleLottery.interface.format("json")),
   };
   fs.writeFileSync("eth/Contracts.json", JSON.stringify(data));
 }

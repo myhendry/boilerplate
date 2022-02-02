@@ -1,6 +1,15 @@
-- [ ] Read Balance
-- [ ] Complex Smart Contract
+Solidity, Blockchain, and Smart Contract Course – Beginner to Expert
+https://youtu.be/M576WGiDBdQ
+https://github.com/smartcontractkit/full-blockchain-solidity-course-py
+6:11
+
+- [ ] Randomness on ChainLink Rinkeby
+- [ ] Chainlink Oracle on Local
+- [ ] Switch to Alchemy
+- [ ] Vault Token - Complex Smart Contract
 - [ ] Multiple Token and Coin
+- [x] Chainlink Oracle on Testnet Rinkeby
+- [x] Read Balance
 - [x] Withdraw
 - [x] Fund
 - [x] Interacting Blockchain on Rinkeby
@@ -22,6 +31,30 @@ https://github.com/01Clarian/nft-marketplace-solution/tree/main/src
 
 https://ethereum.org/en/developers/tutorials/how-to-write-and-deploy-an-nft/
 
+# Ether to/from Wei Conversion
+
+https://titanwolf.org/Network/Articles/Article?AID=a73a8db8-b87c-45de-aee5-47212cb67e5a
+
+https://jamesbachini.com/intermediate-solidity-tutorial/
+
+https://github.com/jamesbachini/myVault/blob/main/contracts/myVault.sol
+
+# Uniswap Smart Contract Addresses
+
+https://docs.uniswap.org/protocol/reference/deployments
+
+# Chainlink Smart Contract Addresses
+
+https://docs.chain.link/docs/ethereum-addresses/
+
+# Chainlink Vrf Contract Addresses
+
+https://docs.chain.link/docs/vrf-contracts/
+
+# Chainlink Hardhat Starter Kit
+
+https://github.com/smartcontractkit/hardhat-starter-kit
+
 The error call revert exception means that:
 
 Method reverts during its execution.
@@ -34,6 +67,7 @@ npx hardhat accounts
 npx hardhat compile
 npx hardhat clean
 npx hardhat test
+npx hardhat test --network rinkeby
 npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
