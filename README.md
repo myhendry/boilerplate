@@ -1,7 +1,8 @@
 Solidity, Blockchain, and Smart Contract Course – Beginner to Expert
 https://youtu.be/M576WGiDBdQ
+
 https://github.com/smartcontractkit/full-blockchain-solidity-course-py
-6:11
+8:23
 
 - [ ] Randomness on ChainLink Rinkeby
 - [ ] Chainlink Oracle on Local
@@ -21,6 +22,8 @@ https://github.com/dappuniversity/blockchain_game/blob/master/src/contracts/ERC7
 
 https://github.com/01Clarian/nft-marketplace-solution/tree/main/src
 
+[patrick-collins](https://github.com/PatrickAlphaC/smartcontract-lottery/blob/main/contracts/Lottery.sol)
+
 [daisy-ui](https://daisyui.com/components/button)
 
 [web3-react-v6 example](https://codesandbox.io/s/8rg3h)
@@ -30,6 +33,28 @@ https://github.com/01Clarian/nft-marketplace-solution/tree/main/src
 [web3-react other doc](https://hackmd.io/Ykpp1MWLTjixIZG2ZJEShA#connector)
 
 https://ethereum.org/en/developers/tutorials/how-to-write-and-deploy-an-nft/
+
+[randomness series part 2](https://youtu.be/_aXumgdpnPU)
+
+# Spencer Github
+
+https://github.com/SpencerMiller23/ethereum-lottery/blob/main/contracts/Lottery.sol
+
+# Crypto Lottery Demo
+
+https://dev.to/johbu/creating-a-lottery-with-hardhat-and-chainlink-385f
+
+https://github.com/johburn/crypto-lottery
+
+# Interacting with Ready Smart Contract
+
+https://ethereum.stackexchange.com/questions/95023/hardhat-how-to-interact-with-a-deployed-contract
+const contractAddress = "0x...",
+const myContract = await hre.ethers.getContractAt("MyContract", contractAddress);
+
+# Different config for testing vs. deployment hardhat solidity?
+
+https://stackoverflow.com/questions/68806740/how-do-i-use-different-config-for-testing-vs-deployment-hardhat-solidity
 
 # Ether to/from Wei Conversion
 
@@ -74,3 +99,13 @@ npx hardhat help
 
 npx hardhat run scripts/deploy.js --network <localhost>
 ```
+
+Why gas and gasPrice in hardhat.config?
+
+const network = await ethers.getDefaultProvider().getNetwork(); i get homestead all the time. i use const network = await hre.network.name;
+
+what is this code referring to? i often get timeout error 40000ms when using enter function
+await this.lottery.enter(overrides = {value: ethers.utils.parseUnits("2", 17)});
+
+const LinkToken = new ethers.Contract(link_token, abi, signer);
+await LinkToken.transfer(this.lottery.address, 1000000000000000);

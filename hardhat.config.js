@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("@nomiclabs/hardhat-waffle");
+require("@appliedblockchain/chainlink-plugins-fund-link");
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -24,6 +25,8 @@ const PRIVATE_KEY_RINKEBY = process.env.PRIVATE_KEY_RINKEBY;
 const INFURA_ROPSTEN_URL = process.env.INFURA_ROPSTEN_URL;
 const PRIVATE_KEY_ROPSTEN = process.env.PRIVATE_KEY_ROPSTEN;
 
+const ALCHEMY_RINKEBY_URL = process.env.ALCHEMY_RINKEBY_URL;
+
 const TESTNET_ACCOUNT_1 = process.env.TESTNET_ACCOUNT_1;
 const TESTNET_ACCOUNT_2 = process.env.TESTNET_ACCOUNT_2;
 
@@ -32,13 +35,19 @@ module.exports = {
   solidity: {
     compilers: [
       {
-        version: "0.8.0",
+        version: "0.4.11",
+      },
+      {
+        version: "0.4.24",
+      },
+      {
+        version: "0.6.0",
       },
       {
         version: "0.6.6",
       },
       {
-        version: "0.6.0",
+        version: "0.8.0",
       },
     ],
     // overrides: {
@@ -50,22 +59,18 @@ module.exports = {
   },
   networks: {
     rinkeby: {
-      url: INFURA_RINKEBY_URL,
+      url: ALCHEMY_RINKEBY_URL,
       accounts: [
         `0x${PRIVATE_KEY_RINKEBY}`,
         `0x${TESTNET_ACCOUNT_1}`,
         `0x${TESTNET_ACCOUNT_2}`,
       ],
-      // timeout: 60000,
+      timeout: 60000,
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
-    ropsten: {
-      url: INFURA_ROPSTEN_URL,
-      accounts: [
-        `0x${PRIVATE_KEY_ROPSTEN}`,
-        `0x${TESTNET_ACCOUNT_1}`,
-        `0x${TESTNET_ACCOUNT_2}`,
-      ],
-      // timeout: 60000,
-    },
+  },
+  mocha: {
+    timeout: 700000,
   },
 };

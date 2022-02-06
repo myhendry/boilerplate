@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@appliedblockchain/chainlink-plugins-fund-link": "^0.0.3",
     "@chainlink/contracts": "^0.3.1",
     "@ethersproject/providers": "^5.5.2",
     "@ethersproject/units": "^5.5.0",
